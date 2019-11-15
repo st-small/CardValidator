@@ -10,6 +10,9 @@
 		84268D94237DC58A00C3E340 /* CardValidator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84268D8A237DC58A00C3E340 /* CardValidator.framework */; };
 		84268D99237DC58A00C3E340 /* CardValidatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84268D98237DC58A00C3E340 /* CardValidatorTests.swift */; };
 		84268D9B237DC58A00C3E340 /* CardValidator.h in Headers */ = {isa = PBXBuildFile; fileRef = 84268D8D237DC58A00C3E340 /* CardValidator.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		84268DDB237E87D400C3E340 /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84268DDA237E87D400C3E340 /* Validator.swift */; };
+		84268DDD237E880200C3E340 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84268DDC237E880200C3E340 /* Constants.swift */; };
+		84268DDF237E882D00C3E340 /* CardValidationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84268DDE237E882D00C3E340 /* CardValidationModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +32,9 @@
 		84268D93237DC58A00C3E340 /* CardValidatorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CardValidatorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		84268D98237DC58A00C3E340 /* CardValidatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardValidatorTests.swift; sourceTree = "<group>"; };
 		84268D9A237DC58A00C3E340 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		84268DDA237E87D400C3E340 /* Validator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validator.swift; sourceTree = "<group>"; };
+		84268DDC237E880200C3E340 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		84268DDE237E882D00C3E340 /* CardValidationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardValidationModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +79,9 @@
 			children = (
 				84268D8D237DC58A00C3E340 /* CardValidator.h */,
 				84268D8E237DC58A00C3E340 /* Info.plist */,
+				84268DDA237E87D400C3E340 /* Validator.swift */,
+				84268DDC237E880200C3E340 /* Constants.swift */,
+				84268DDE237E882D00C3E340 /* CardValidationModel.swift */,
 			);
 			path = CardValidator;
 			sourceTree = "<group>";
@@ -195,6 +204,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84268DDB237E87D400C3E340 /* Validator.swift in Sources */,
+				84268DDF237E882D00C3E340 /* CardValidationModel.swift in Sources */,
+				84268DDD237E880200C3E340 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -395,6 +407,7 @@
 		84268DA2237DC58A00C3E340 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3PTYV272Z4;
 				INFOPLIST_FILE = CardValidatorTests/Info.plist;
@@ -413,6 +426,7 @@
 		84268DA3237DC58A00C3E340 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3PTYV272Z4;
 				INFOPLIST_FILE = CardValidatorTests/Info.plist;
