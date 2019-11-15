@@ -8,7 +8,7 @@
 
 import Foundation
 
-public typealias ValidationResult = (Bool, String)
+public typealias ValidationResult = (Bool, String, CardValidation?)
 public typealias Handler = (ValidationResult) -> ()
 
 public class Validator {
@@ -22,22 +22,22 @@ public class Validator {
     public func validate(completion: @escaping Handler) {
         
         guard isNotEmpty() else {
-            completion((false, Constants.ReasonDescription.emptyError))
+            completion((false, Constants.ReasonDescription.emptyError, nil))
             return
         }
         
         guard withoutCharacters() else {
-            completion((false, Constants.ReasonDescription.containsCharsError))
+            completion((false, Constants.ReasonDescription.containsCharsError, nil))
             return
         }
         
         guard lengthValidation() else {
-            completion((false, Constants.ReasonDescription.lengthError))
+            completion((false, Constants.ReasonDescription.lengthError, nil))
             return
         }
         
         guard noZeroLeadingValidation() else {
-            completion((false, Constants.ReasonDescription.zeroLeadingError))
+            completion((false, Constants.ReasonDescription.zeroLeadingError, nil))
             return
         }
         
@@ -63,6 +63,7 @@ public class Validator {
     }
     
     // MARK: Network logic -
+    
     private func request(completion: @escaping Handler) {
         let request = URLRequest(url: prepareUrl())
         let task = createDataTask(from: request, completion: completion)
@@ -72,14 +73,14 @@ public class Validator {
     private func createDataTask(from request: URLRequest, completion: @escaping Handler) -> URLSessionDataTask {
         return URLSession.shared.dataTask(with: request, completionHandler: { (data, response, error) in
             DispatchQueue.main.async { [weak self] in
-                let decoded = self?.decodeJSON(type: CardValidation.self, from: data)
+                let card = self?.decodeJSON(type: CardValidation.self, from: data)
                 
-                guard decoded?.number.luhn == true else {
-                    completion((false, Constants.ReasonDescription.luhnError))
+                guard card?.number.luhn == true else {
+                    completion((false, Constants.ReasonDescription.luhnError, card))
                     return
                 }
                 
-                completion((true, Constants.ReasonDescription.cardValid))
+                completion((true, Constants.ReasonDescription.cardValid, card))
             }
         })
     }

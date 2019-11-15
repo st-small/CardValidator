@@ -18,7 +18,7 @@ class CardValidatorTests: XCTestCase {
     public func testEmptyNumberNotValid() {
         let number = ""
         validator = Validator(number)
-        validator.validate { (success, reason) in
+        validator.validate { (success, _, _) in
             XCTAssertEqual(success, false, "Number shouldn't be empty")
         }
     }
@@ -27,7 +27,7 @@ class CardValidatorTests: XCTestCase {
     public func testWithoutAlphabeticalChars() {
         let number = "sometext"
         validator = Validator(number)
-        validator.validate { (success, reason) in
+        validator.validate { (success, _, _) in
             XCTAssertEqual(success, false, "Number shouldn't contains any characters besides the numbers")
         }
     }
@@ -36,7 +36,7 @@ class CardValidatorTests: XCTestCase {
     public func testWithoutSpecialChars() {
         let number = "!@#$%"
         validator = Validator(number)
-        validator.validate { (success, reason) in
+        validator.validate { (success, _, _) in
             XCTAssertEqual(success, false, "Number shouldn't contains any special characters")
         }
     }
@@ -45,13 +45,13 @@ class CardValidatorTests: XCTestCase {
     public func testNumberLength() {
         var number = "1"
         validator = Validator(number)
-        validator.validate { (success, reason) in
+        validator.validate { (success, _, _) in
             XCTAssertEqual(success, false, "Number should be great or equal 12 charaecters length")
         }
         
         number = "12345678901234567890"
         validator = Validator(number)
-        validator.validate { (success, reason) in
+        validator.validate { (success, reason, _) in
             XCTAssertEqual(success, false, "Number should be less or equal 19 charaecters length")
         }
     }
@@ -60,7 +60,7 @@ class CardValidatorTests: XCTestCase {
     public func testZeroLeading() {
         let number = "0123456789123456"
         validator = Validator(number)
-        validator.validate { (success, reason) in
+        validator.validate { (success, reason, _) in
             XCTAssertEqual(success, false, "Number shouldn't starts from zero number")
         }
     }
@@ -72,7 +72,7 @@ class CardValidatorTests: XCTestCase {
         var result = false
         
         validator = Validator(number)
-        validator.validate { (success, reason) in
+        validator.validate { (success, reason, _) in
             result = success
             expectation.fulfill()
         }
@@ -88,12 +88,45 @@ class CardValidatorTests: XCTestCase {
         var result = false
         
         validator = Validator(number)
-        validator.validate { (success, reason) in
+        validator.validate { (success, reason, _) in
             result = success
             expectation.fulfill()
         }
         
         waitForExpectations(timeout: 5, handler: nil)
         XCTAssertEqual(result, false, "Number should pass the luhn algorithm")
+    }
+    
+    // Test success API request
+    public func testAPIResponse() {
+        let number = "4929804463622139"
+        let expectation = self.expectation(description: "API request")
+        var cardResponse: CardValidation?
+            
+        validator = Validator(number)
+        validator.validate { (success, reason, card) in
+            cardResponse = card
+            expectation.fulfill()
+        }
+        
+        waitForExpectations(timeout: 5, handler: nil)
+        XCTAssertNotNil(cardResponse, "Response from API should return card value")
+    }
+    
+    // Test success scheme validation
+    public func testSchemeValidation() {
+        let number = "4929804463622139"
+        let expectation = self.expectation(description: "Scheme")
+        let schemeValue = "visa"
+        var schemeResponse = ""
+        
+        validator = Validator(number)
+        validator.validate { (success, reason, card) in
+            schemeResponse = card?.scheme ?? ""
+            expectation.fulfill()
+        }
+        
+        waitForExpectations(timeout: 5, handler: nil)
+        XCTAssertEqual(schemeResponse, schemeValue, "Response should return right card's scheme value")
     }
 }

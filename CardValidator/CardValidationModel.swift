@@ -9,13 +9,13 @@
 import Foundation
 
 // MARK: - CardValidation
-struct CardValidation: Decodable {
-    let number: Number
-    let scheme: String
+public struct CardValidation: Decodable {
+    public let number: Number
+    public let scheme: String
 }
 
 // MARK: - Number
-struct Number: Decodable {
-    let length: Int
-    let luhn: Bool
+public struct Number: Decodable {
+    public let length: Int
+    public let luhn: Bool
 }
