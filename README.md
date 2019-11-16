@@ -1,5 +1,5 @@
 # CardValidator Framework
-This is the first part of terms of reference. Full description referenece is: [Description](https://github.com/st-small/SkybondsApp/blob/master/tasks_ios_developer.pdf)
+This is the first part of terms of reference. Full description referenece is: [Description](https://github.com/st-small/CardValidator/blob/master/SDK%20(iOS)_test_assignment.pdf)
 
 ## Short desciption
 CardValidator allows to validate numbers of payments cards using three parts of validation:
